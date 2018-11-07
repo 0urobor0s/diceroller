@@ -21,12 +21,12 @@ defmodule DiceRoler do
     pproler_a(t, list)
   end
 
-  def pproler_a(tsk, []) do
+  defp pproler_a(tsk, []) do
     tsk
     |> ParallelTask.perform
   end
 
-  def pproler_a(tsk, list) do
+  defp pproler_a(tsk, list) do
     tsk
     |> ParallelTask.add(Kernel.hd(list), fn -> roler(Kernel.hd(list)) end)
     |> pproler_a(Kernel.tl(list))
