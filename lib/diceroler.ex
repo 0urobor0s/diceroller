@@ -4,7 +4,7 @@ defmodule DiceRoler do
   """
 
   def ssroler(list) do
-    Enum.map list, fn(input) ->
+    Stream.map list, fn(input) ->
       [n, d] = String.split(input, "d")
       Enum.reduce(1..String.to_integer(n), 0, fn(_d, acc) ->
         Enum.random(1..String.to_integer(d)) + acc
@@ -13,7 +13,7 @@ defmodule DiceRoler do
   end
 
   def sroler(list) do
-    Enum.map list, fn(x) -> roler(x) end
+    Stream.map list, fn(x) -> roler(x) end
   end
 
   def pproler(list) do
@@ -53,7 +53,7 @@ defmodule DiceRoler do
 
   defp tasker(tsk, number, dice) do
     tsk
-    |> ParallelTask.add(Integer.to_string(number), fn -> Enum.random(1..dice) end)
+    |> ParallelTask.add(number, fn -> Enum.random(1..dice) end)
     |> tasker(number-1, dice)
   end
 end
