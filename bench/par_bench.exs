@@ -1,7 +1,7 @@
 defmodule BasicBench do
   use Benchfella
 
-  @list File.read!("tinput.txt") |> String.split("\n") |> List.delete("")
+  @list File.read!("sample_input.txt") |> String.split("\n") |> List.delete("")
 
   bench "Single roler single execution" do
     DiceRoler.ssroler(@list)
