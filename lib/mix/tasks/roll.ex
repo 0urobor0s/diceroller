@@ -20,6 +20,6 @@ defmodule Mix.Tasks.Roll do
     |> File.stream!
     |> Enum.to_list
     |> Enum.map(fn x -> String.trim x end)
-    |> DiceRoler.sroler
+    |> DiceRoler.pproler
   end
 end

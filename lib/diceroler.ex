@@ -16,6 +16,22 @@ defmodule DiceRoler do
     Enum.map list, fn(x) -> roler(x) end
   end
 
+  def pproler(list) do
+    t = ParallelTask.new
+    pproler_a(t, list)
+  end
+
+  def pproler_a(tsk, []) do
+    tsk
+    |> ParallelTask.perform
+  end
+
+  def pproler_a(tsk, list) do
+    tsk
+    |> ParallelTask.add(Kernel.hd(list), fn -> roler(Kernel.hd(list)) end)
+    |> pproler_a(Kernel.tl(list))
+  end
+
   def proler(list) do
     Parallel.map list, fn(x) -> roler(x) end
   end

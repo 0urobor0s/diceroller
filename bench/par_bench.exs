@@ -1,7 +1,7 @@
 defmodule BasicBench do
   use Benchfella
 
-  @list File.read!("input.txt") |> String.split("\n") |> List.delete("")
+  @list File.read!("tinput.txt") |> String.split("\n") |> List.delete("")
 
   bench "Single roler single execution" do
     DiceRoler.ssroler(@list)
@@ -13,8 +13,13 @@ defmodule BasicBench do
     :ok
   end
 
-  bench "Parallel roler parallel execution" do
+  bench "Parallel roler parallel execution v1" do
     DiceRoler.proler(@list)
+    :ok
+  end
+
+  bench "Parallel roler parallel execution v2" do
+    DiceRoler.pproler(@list)
     :ok
   end
 end
