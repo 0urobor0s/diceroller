@@ -19,6 +19,7 @@ defmodule DiceRoler do
   def pproler(list) do
     t = ParallelTask.new
     pproler_a(t, list)
+    |> Enum.reduce(0, fn({_k, v}, acc) -> v + acc end)
   end
 
   defp pproler_a(tsk, []) do
@@ -55,5 +56,19 @@ defmodule DiceRoler do
     tsk
     |> ParallelTask.add(number, fn -> Enum.random(1..dice) end)
     |> tasker(number-1, dice)
+  end
+
+  defp read_f(path) do
+    path
+    |> File.stream!
+    |> Enum.to_list
+    |> Enum.map(fn x -> String.trim x end)
+  end
+
+  def rmeasure(path) do
+    Benchmark.measure(fn -> read_f(path) |> ssroler |> Enum.sum end)
+    Benchmark.measure(fn -> read_f(path) |> sroler end)
+    Benchmark.measure(fn -> read_f(path) |> pproler end)
+    #Benchmark.measure(fn -> read_f(path) |> proler end)
   end
 end
